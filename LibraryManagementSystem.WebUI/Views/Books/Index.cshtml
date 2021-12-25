@@ -1,0 +1,296 @@
+﻿@model X.PagedList.PagedList<LibraryManagementSystem.Shared.Models.Books.GetBookModel>
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@using X.PagedList.Mvc.Bootstrap4.Core
+
+@using Microsoft.AspNetCore.Identity
+@using LibraryManagementSystem.Infrastructure.Identity
+@using System.Security.Claims;
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>LMS Admin - Books</title>
+    <link rel="icon" href="https://i.imgur.com/gt6GgHT.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="https://kit.fontawesome.com/4e3ee5c344.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2&family=Mochiy+Pop+P+One&family=Open+Sans+Condensed:wght@300&family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <link href="~/css/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-action="index"
+               asp-controller="Admin">
+                <div class="sidebar-brand-text mx-3">LMS Admin </div>
+            </a>
+
+            <hr class="sidebar-divider my-0">
+
+            <li class="nav-item">
+                <a class="nav-link" asp-action="index" asp-controller="Admin">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            <li class="nav-item">
+                <a class="nav-link" asp-action="Index" asp-controller="Books" style="color: #fff !important;">
+                    <i class="fas fa-fw fa-book" style="color: #fff !important;"></i>
+                    <span>Books</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" asp-action="Index" asp-controller="Authors">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Authors</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" asp-action="Index" asp-controller="Customers">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Customers</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" asp-action="Index" asp-controller="Borrows">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Borrows</span>
+                </a>
+            </li>
+
+            @if (User.IsInRole("SuperAdmin"))
+            {
+                <div class="sidebar-heading">
+                    Super Admin
+                </div>
+
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                       aria-expanded="true" aria-controls="collapsePages">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Manage</span>
+                    </a>
+                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Manage:</h6>
+                            <a class="collapse-item" asp-action="GetUsers" asp-controller="Account">Admins</a>
+                            <div class="collapse-divider"></div>
+                            <h6 class="collapse-header">Other:</h6>
+                            <a class="collapse-item" asp-action="Register" asp-controller="Account">Register new Admin</a>
+                        </div>
+                    </div>
+                </li>
+            }
+
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+        </ul>
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+                          asp-action="Index" asp-controller="Books" method="get">
+                        <div class="input-group">
+                            <input type="search" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                   aria-label="Search" aria-describedby="basic-addon2" name="search">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                 aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                               placeholder="Search for..." aria-label="Search"
+                                               aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">@User.Identity.Name</span>
+                                <img class="img-profile rounded-circle" src="https://i.imgur.com/2botPDD.png">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                 aria-labelledby="userDropdown">
+                                <a class="dropdown-item" asp-action="Profile" asp-controller="Account" asp-route-Id="@User.FindFirst(ClaimTypes.NameIdentifier).Value">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" asp-action="Logout" asp-controller="Account">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End of Topbar -->
+                <div class="container-fluid">
+                    <a class="btn myBtn text-right" asp-controller="Books" asp-action="Create">
+                        Add New
+                    </a>
+                    <div class="table-responsive myTable">
+                        <h6 style="color: #495057; font-weight: bold">All Books</h6>
+                        <table class="table table-hover">
+                            <thead class="thead-light table-borderless" style="color: #495057;">
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>ISBN</th>
+                                    <th>Author</th>
+                                    <th>Language</th>
+                                    <th>Publisher</th>
+                                    <th>Pages</th>
+                                    <th>Release</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-borderless">
+                                @foreach (var book in Model)
+                                {
+                                    <tr>
+                                        <td>@book.Title</td>
+                                        <td>@book.Description</td>
+                                        <td>@book.ISBN</td>
+                                        <td>@book.Author.FirstName  @book.Author.LastName</td>
+                                        <td>@book.Language</td>
+                                        <td>@book.Publisher</td>
+                                        <td>@book.PagesNumber</td>
+                                        <td>@book.ReleaseDate.ToShortDateString()</td>
+                                        <td>
+                                            @if (ViewBag.BookIds.Contains(book.Id))
+                                            {
+                                                <p style="color: firebrick">On loan</p>
+                                            }
+                                            else
+                                            {
+                                                <p style="color: forestgreen">Available</p>
+                                            }
+                                        </td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a class="mr-2" asp-controller="Books" asp-action="Edit" asp-route-Id="@book.Id">
+                                                    <i class="fa fa-edit" style="color:#fe9f45;"></i>
+                                                </a>
+                                                <a asp-controller="Books" asp-action="Delete" asp-route-Id="@book.Id">
+                                                    <i class="fa fa-trash" style="color:#ee5455;"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            @if (Model.Count > 0)
+                            {
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="10">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p style="padding-top:8px; float:left;"> @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount pages</p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="float-right">
+                                                        @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }), Bootstrap4PagedListRenderOptions.Classic)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; 2021 | Rexhep</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/js/script.js" type="text/javascript"></script>
+</body>
+
+</html>
+

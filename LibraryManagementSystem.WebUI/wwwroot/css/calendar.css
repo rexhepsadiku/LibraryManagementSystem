@@ -1,0 +1,424 @@
+﻿input[type="month"] {
+    -webkit-appearance: listbox;
+}
+
+.months {
+    width: 100%;
+    height: 280px;
+    position: relative;
+}
+
+    .months .hr {
+        height: 1px;
+        margin: 15px 0;
+        background: #ccc;
+    }
+
+.month {
+    padding: 15px;
+    width: inherit;
+    height: inherit;
+    background: #fff;
+    position: absolute;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition: all .4s ease-in-out 0s;
+    -o-transition: all .4s ease-in-out 0s;
+    transition: all .4s ease-in-out 0s;
+    -webkit-box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.01), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.01), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+}
+
+.months[data-flow="left"] .month {
+    -webkit-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+}
+
+.months[data-flow="right"] .month {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+
+.months .month[data-active="true"] {
+    -webkit-transform: rotateY(0);
+    transform: rotateY(0);
+}
+
+.calendar {
+    width: 400px;
+    font-size: 100%;
+    margin: 0 auto;
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+    cursor: default;
+    position: relative;
+}
+
+@media (max-width: 767.98px) {
+    .calendar {
+        width: 100%;
+    }
+}
+
+.calendar .header {
+    height: 100px;
+    position: relative;
+    color: #fff;
+}
+
+    .calendar .header .text {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #308ff0;
+        padding: 15px;
+        -webkit-transform: rotateX(90deg);
+        transform: rotateX(90deg);
+        -webkit-transform-origin: bottom;
+        -ms-transform-origin: bottom;
+        transform-origin: bottom;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transition: .4s ease-in-out 0s;
+        -o-transition: .4s ease-in-out 0s;
+        transition: .4s ease-in-out 0s;
+        -webkit-box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.01), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+        box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.01), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+        opacity: 0;
+    }
+
+        .calendar .header .text > span {
+            text-align: center;
+            padding: 20px;
+            display: block;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+    .calendar .header.active .text {
+        -webkit-transform: rotateX(0deg);
+        transform: rotateX(0deg);
+        opacity: 1;
+    }
+
+.header [data-action] {
+    color: inherit;
+    position: absolute;
+    top: 50%;
+    margin-top: -20px;
+    width: 40px;
+    height: 40px;
+    z-index: 1;
+    opacity: 0;
+    -webkit-transition: all .4s ease-in-out 0s;
+    -o-transition: all .4s ease-in-out 0s;
+    transition: all .4s ease-in-out 0s;
+}
+
+    .header [data-action] > i {
+        width: 20px;
+        height: 20px;
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-top: -10px;
+        margin-left: -10px;
+    }
+
+        .header [data-action] > i:before, .header [data-action] > i:after {
+            top: 50%;
+            margin-top: -1px;
+            content: '';
+            position: absolute;
+            height: 2px;
+            width: 20px;
+            border-top: 2px solid;
+            border-radius: 2px;
+        }
+
+.header [data-action*="prev"] {
+    left: 15px;
+}
+
+    .header [data-action*="prev"] > i:before, .header [data-action*="prev"] > i:after {
+        left: 0;
+    }
+
+    .header [data-action*="prev"] > i:before {
+        top: 3px;
+        -webkit-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+    }
+
+    .header [data-action*="prev"] > i:after {
+        top: auto;
+        bottom: 3px;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+.header [data-action*="next"] {
+    right: 15px;
+}
+
+    .header [data-action*="next"] > i:before, .header [data-action*="next"] > i:after {
+        right: 0;
+    }
+
+    .header [data-action*="next"] > i:before {
+        top: auto;
+        bottom: 3px;
+        -webkit-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+    }
+
+    .header [data-action*="next"] > i:after {
+        top: 3px;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+.header.active [data-action] {
+    opacity: 1;
+}
+
+[data-theme="january"] {
+    background-color: #90CAF9;
+}
+
+    [data-theme="january"] .row.head {
+        color: #1E88E5;
+    }
+
+    [data-theme="january"] .header .text,
+    [data-theme="january"] .table .row .cell.active span {
+        background-color: #1E88E5;
+    }
+
+[data-theme="february"] {
+    background-color: #81D4FA;
+}
+
+    [data-theme="february"] .row.head {
+        color: #039BE5;
+    }
+
+    [data-theme="february"] .header .text,
+    [data-theme="february"] .table .row .cell.active span {
+        background-color: #039BE5;
+    }
+
+[data-theme="march"] {
+    background-color: #80CBC4;
+}
+
+    [data-theme="march"] .row.head {
+        color: #00897B;
+    }
+
+    [data-theme="march"] .header .text,
+    [data-theme="march"] .table .row .cell.active span {
+        background-color: #00897B;
+    }
+
+[data-theme="april"] {
+    background-color: #C5E1A5;
+}
+
+    [data-theme="april"] .row.head {
+        color: #7CB342;
+    }
+
+    [data-theme="april"] .header .text,
+    [data-theme="april"] .table .row .cell.active span {
+        background-color: #7CB342;
+    }
+
+[data-theme="may"] {
+    background-color: #FFE082;
+}
+
+    [data-theme="may"] .row.head {
+        color: #FFB300;
+    }
+
+    [data-theme="may"] .header .text,
+    [data-theme="may"] .table .row .cell.active span {
+        background-color: #FFB300;
+    }
+
+[data-theme="june"] {
+    background-color: #FFAB91;
+}
+
+    [data-theme="june"] .row.head {
+        color: #F4511E;
+    }
+
+    [data-theme="june"] .header .text,
+    [data-theme="june"] .table .row .cell.active span {
+        background-color: #F4511E;
+    }
+
+[data-theme="july"] {
+    background-color: #CE93D8;
+}
+
+    [data-theme="july"] .row.head {
+        color: #8E24AA;
+    }
+
+    [data-theme="july"] .header .text,
+    [data-theme="july"] .table .row .cell.active span {
+        background-color: #8E24AA;
+    }
+
+[data-theme="august"] {
+    background-color: #B39DDB;
+}
+
+    [data-theme="august"] .row.head {
+        color: #5E35B1;
+    }
+
+    [data-theme="august"] .header .text,
+    [data-theme="august"] .table .row .cell.active span {
+        background-color: #5E35B1;
+    }
+
+[data-theme="september"] {
+    background-color: #EF9A9A;
+}
+
+    [data-theme="september"] .row.head {
+        color: #E53935;
+    }
+
+    [data-theme="september"] .header .text,
+    [data-theme="september"] .table .row .cell.active span {
+        background-color: #E53935;
+    }
+
+[data-theme="october"] {
+    background-color: #CE93D8;
+}
+
+    [data-theme="october"] .row.head {
+        color: #8E24AA;
+    }
+
+    [data-theme="october"] .header .text,
+    [data-theme="october"] .table .row .cell.active span {
+        background-color: #8E24AA;
+    }
+
+[data-theme="november"] {
+    background-color: #BCAAA4;
+}
+
+    [data-theme="november"] .row.head {
+        color: #6D4C41;
+    }
+
+    [data-theme="november"] .header .text,
+    [data-theme="november"] .table .row .cell.active span {
+        background-color: #6D4C41;
+    }
+
+[data-theme="december"] {
+    background-color: #B0BEC5;
+}
+
+    [data-theme="december"] .row.head {
+        color: #546E7A;
+    }
+
+    [data-theme="december"] .header .text,
+    [data-theme="december"] .table .row .cell.active span {
+        background-color: #546E7A;
+    }
+
+.d-table-cell {
+    display: table-cell !important;
+}
+
+.d-sm-table-cell {
+    display: table-cell !important;
+}
+
+.d-md-table-cell {
+    display: table-cell !important;
+}
+
+.d-lg-table-cell {
+    display: table-cell !important;
+}
+
+.d-xl-table-cell {
+    display: table-cell !important;
+}
+
+.d-print-table-cell {
+    display: table-cell !important;
+}
+
+.table .row .cell {
+    width: 14.28%;
+    padding: 5px;
+    text-align: center;
+    display: table-cell;
+}
+
+    .table .row .cell.disable {
+        color: #ccc;
+    }
+
+    .table .row .cell span {
+        display: inline-block;
+        width: 28px;
+        height: 28px;
+        line-height: 28px;
+        -webkit-transition: color,background .4s ease-in-out 0s;
+        -o-transition: color,background .4s ease-in-out 0s;
+        transition: color,background .4s ease-in-out 0s;
+    }
+
+    .table .row .cell.active span {
+        color: #fff;
+        background-color: #308ff0;
+        border-radius: 4px;
+    }
+
+.barChart-container {
+    position: relative;
+    background-color: white;
+    height: 100%;
+    padding: 10px;
+}
+
+#barChart {
+    width: 100% !important;
+    height: auto !important;
+    padding: 10px 20px 10px 10px;
+    margin: 0;
+    position: absolute;
+    bottom: 2px;
+}
+
+@media only screen and (max-width: 760px) {
+    #barChart {
+        position: relative;
+        bottom: auto;
+    }
+}
+
+.pieCh {
+    padding-bottom: 20.1px;
+}
