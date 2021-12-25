@@ -1,13 +1,13 @@
-# LibraryManagementSystem
-A management system for library to manage books, customers and borrowed books
+# LibraryManagementSystem <br/>
+A management system for library to manage books, customers and borrowed books <br/>
 
-# Stack
-.NET 5 MVC
-Onion Architecture
-Entity Framework Core
-SQL Server
-Repository-Service Pattern
-ASP Identity
-HTML/CSS/Bootstrap
+# Stack <br/>
+.NET 5 MVC <br/>
+Onion Architecture <br/>
+Entity Framework Core <br/>
+SQL Server <br/>
+Repository-Service Pattern <br/>
+ASP Identity <br/>
+HTML/CSS/Bootstrap <br/>
 
-# User Interface
+# User Interface <br/>
