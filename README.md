@@ -1,5 +1,5 @@
 # LibraryManagementSystem <br/>
-A management system for library to manage books, customers and borrowed books. System allows admins to search book by title and author, Add, Edit, Delete books, customers, borrowed books etc. View Custuomer and Author details. Super admin can register new admins and view their activity in system.<br/>
+A management system for library to manage books, customers and borrowed books. System allows admins to search book by title and author, Add, Edit, Delete books, customers, borrowed books, View Customer and Author details. Super admin can register new admins and view their activity in system.<br/>
 
 # Stack <br/>
 .NET 5 MVC <br/>
@@ -8,6 +8,8 @@ Entity Framework Core <br/>
 SQL Server <br/>
 Repository-Service Pattern <br/>
 ASP Identity <br/>
+Automapper <br/>
+Fluent Validation <br />
 HTML/CSS/Bootstrap <br/>
 
 # User Interface <br/>
