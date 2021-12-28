@@ -10,6 +10,7 @@ namespace LibraryManagementSystem.Application.Validations.Authors
             RuleFor(x => x.FirstName).NotEmpty();
             RuleFor(x => x.LastName).NotEmpty();
             RuleFor(x => x.BirthDate).NotEmpty();
+            RuleFor(x => x.Country).NotEmpty();
         }
     }
 }

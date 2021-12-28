@@ -8,7 +8,9 @@ namespace LibraryManagementSystem.Application.Validations.Accounts
         public LoginValidation()
         {
             RuleFor(x => x.Email).EmailAddress().NotEmpty();
-            RuleFor(x => x.Password).NotEmpty();
+            RuleFor(x => x.Password)
+                .MinimumLength(6)
+                .NotEmpty();
         }
     }
 }

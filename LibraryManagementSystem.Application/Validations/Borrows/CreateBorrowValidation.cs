@@ -9,6 +9,7 @@ namespace LibraryManagementSystem.Application.Validations.Borrows
         {
             RuleFor(x => x.BookId).NotEmpty();
             RuleFor(x => x.CustomerId).NotEmpty();
+            RuleFor(x => x.EndDate).NotEmpty();
         }
     }
 }
