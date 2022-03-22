@@ -235,6 +235,25 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "fbacdbdd-7ab5-468a-a21e-eb86233447d2",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "d2f67ee8-9208-4f43-8d1e-13fe8742017a",
+                            Email = "rexhep@admin.com",
+                            EmailConfirmed = false,
+                            FirstName = "Rexhep",
+                            LastName = "Sadiku",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "REXHEP@ADMIN.COM",
+                            NormalizedUserName = "REXHEP@ADMIN.COM",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "527ad239-37b0-4b9c-ad7b-725206339e90",
+                            TwoFactorEnabled = false,
+                            UserName = "rexhep@admin.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -262,6 +281,29 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "fab4fac1-c546-41de-aebc-a14da6895711",
+                            ConcurrencyStamp = "1",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "c7b013f0-5201-4317-abd8-c211f91b7330",
+                            ConcurrencyStamp = "2",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = "b74ddd14-6340-4840-95c2-db12554843e5",
+                            ConcurrencyStamp = "3",
+                            Name = "SuperAdmin",
+                            NormalizedName = "SUPERADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -347,6 +389,13 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "fbacdbdd-7ab5-468a-a21e-eb86233447d2",
+                            RoleId = "b74ddd14-6340-4840-95c2-db12554843e5"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
