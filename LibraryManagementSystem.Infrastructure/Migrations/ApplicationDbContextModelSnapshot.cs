@@ -4,16 +4,14 @@ using LibraryManagementSystem.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LibraryManagementSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211220153511_UserIdAddedToEntities")]
-    partial class UserIdAddedToEntities
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -237,6 +235,26 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "fbacdbdd-7ab5-468a-a21e-eb86233447d2",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "571022df-ab1c-4fe6-99d2-a6110f209bd9",
+                            Email = "rexhep@admin.com",
+                            EmailConfirmed = false,
+                            FirstName = "Rexhep",
+                            LastName = "Sadiku",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "REXHEP@ADMIN.COM",
+                            NormalizedUserName = "REXHEP@ADMIN.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEP7E4aiDD2gjQfkiRqp+20CxVHEm4WssgJp4vJpLGnQAXFVKDkxdKiYzRZhXAEXj4A==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "383b0897-7940-410e-90a7-200a7717ff33",
+                            TwoFactorEnabled = false,
+                            UserName = "rexhep@admin.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -264,6 +282,29 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "fab4fac1-c546-41de-aebc-a14da6895711",
+                            ConcurrencyStamp = "1",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "c7b013f0-5201-4317-abd8-c211f91b7330",
+                            ConcurrencyStamp = "2",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = "b74ddd14-6340-4840-95c2-db12554843e5",
+                            ConcurrencyStamp = "3",
+                            Name = "SuperAdmin",
+                            NormalizedName = "SUPERADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -349,6 +390,13 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "fbacdbdd-7ab5-468a-a21e-eb86233447d2",
+                            RoleId = "b74ddd14-6340-4840-95c2-db12554843e5"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

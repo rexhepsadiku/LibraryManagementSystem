@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LibraryManagementSystem.Infrastructure.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -58,6 +58,7 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatetAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -76,6 +77,7 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatetAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -204,6 +206,7 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                     Publisher = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PagesNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatetAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -227,6 +230,7 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                     BookId = table.Column<int>(type: "int", nullable: false),
                     CustomerId = table.Column<int>(type: "int", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatetAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -246,6 +250,26 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "fab4fac1-c546-41de-aebc-a14da6895711", "1", "Admin", "ADMIN" },
+                    { "c7b013f0-5201-4317-abd8-c211f91b7330", "2", "User", "USER" },
+                    { "b74ddd14-6340-4840-95c2-db12554843e5", "3", "SuperAdmin", "SUPERADMIN" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "fbacdbdd-7ab5-468a-a21e-eb86233447d2", 0, "571022df-ab1c-4fe6-99d2-a6110f209bd9", "rexhep@admin.com", false, "Rexhep", "Sadiku", false, null, "REXHEP@ADMIN.COM", "REXHEP@ADMIN.COM", "AQAAAAEAACcQAAAAEP7E4aiDD2gjQfkiRqp+20CxVHEm4WssgJp4vJpLGnQAXFVKDkxdKiYzRZhXAEXj4A==", null, false, "383b0897-7940-410e-90a7-200a7717ff33", false, "rexhep@admin.com" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "b74ddd14-6340-4840-95c2-db12554843e5", "fbacdbdd-7ab5-468a-a21e-eb86233447d2" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

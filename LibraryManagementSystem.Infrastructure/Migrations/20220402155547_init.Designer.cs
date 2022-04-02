@@ -4,14 +4,16 @@ using LibraryManagementSystem.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LibraryManagementSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220402155547_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -241,7 +243,7 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                         {
                             Id = "fbacdbdd-7ab5-468a-a21e-eb86233447d2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d2f67ee8-9208-4f43-8d1e-13fe8742017a",
+                            ConcurrencyStamp = "571022df-ab1c-4fe6-99d2-a6110f209bd9",
                             Email = "rexhep@admin.com",
                             EmailConfirmed = false,
                             FirstName = "Rexhep",
@@ -249,8 +251,9 @@ namespace LibraryManagementSystem.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "REXHEP@ADMIN.COM",
                             NormalizedUserName = "REXHEP@ADMIN.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEP7E4aiDD2gjQfkiRqp+20CxVHEm4WssgJp4vJpLGnQAXFVKDkxdKiYzRZhXAEXj4A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "527ad239-37b0-4b9c-ad7b-725206339e90",
+                            SecurityStamp = "383b0897-7940-410e-90a7-200a7717ff33",
                             TwoFactorEnabled = false,
                             UserName = "rexhep@admin.com"
                         });
